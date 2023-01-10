@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.app {
+  width: 100%;
+}
+.teambuilder-container {
+  display: flex;
+}
+.board {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+}
+.boardTile {
+  border: solid 1px black;
+  width: 125px;
+  height: 125px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.championBank {
+  margin-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+}
+
+img {
+  display: flex;
+  height: 100px;
+  width: 100px;
+}
+
+.trait-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.trait-icon {
+  background-color: black;
+  height: 30px;
+  width: 30px;
+}
+#clear {
+  margin-bottom: 1rem;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+}
