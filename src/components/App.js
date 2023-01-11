@@ -6,6 +6,7 @@ import Board from './Board';
 import ChampionBank from './ChampionBank';
 import Traits from './Traits';
 import Notes from './Notes';
+import SavedBoards from './SavedBoards';
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
   const [userBoard, setUserBoard] = useState([]);
   const [notesText, setNotesText] = useState('');
   const [boardName, setBoardName] = useState('');
+  const [collection, setCollection] = useState([]);
 
   const clearBoard = () => {
     setNotesText('');
@@ -39,12 +41,12 @@ const App = () => {
       board: JSON.stringify(userBoard),
       notes: notesText
     })
-      .then(() => console.log('saved'))
+      .then(() => getBoards())
       .catch((error) => console.log(error))
   }
 
-  const loadBoard = (event) => {
-    axios.get('/boards/Heroes')
+  const loadBoard = (boardName) => {
+    axios.get(`/boards/${boardName}`)
       .then((response) => {
         setUserBoard(JSON.parse(response.data[0].board))
         setBoardName(response.data[0].boardName)
@@ -53,23 +55,35 @@ const App = () => {
       .catch((error) => console.log(error))
   }
 
+  const getBoards = () => {
+    axios.get('/boards')
+      .then((response) => {
+        setCollection(response.data)
+      })
+      .catch((error) => console.log(error))
+  }
+
   useEffect(() => {
     axios.get('/champs')
       .then((response) => {
         setChampions(response.data);
+        getBoards();
       })
       .catch((error) => console.log(error));
       fillBoard();
   }, []);
 
   return (
-    <div className="app">
-      <button id="clear" onClick={() => clearBoard()}>Clear Board</button>
+    <div className="flex flex-col mx-[10%] w-4/5 mt-6 items-center justify-center border border-black">
+      <button className="w-32 hover:bg-slate-500 mb-4" onClick={() => clearBoard()}>Clear Board</button>
       <DndProvider backend={HTML5Backend}>
-        <div className="teambuilder-container">
+        <div className="flex h-[32rem] w-full">
           <Traits userBoard={userBoard}/>
           <Board userBoard={userBoard} setUserBoard={setUserBoard}/>
-          <Notes notesText={notesText} setNotesText={setNotesText} boardName={boardName} setBoardName={setBoardName} handleSubmit={handleSubmit} loadBoard={loadBoard}/>
+          <div className="w-1/5">
+            <Notes notesText={notesText} setNotesText={setNotesText} boardName={boardName} setBoardName={setBoardName} handleSubmit={handleSubmit} />
+            <SavedBoards collection={collection} setCollection={setCollection} loadBoard={loadBoard}/>
+          </div>
         </div>
         <ChampionBank champions={champions} userBoard={userBoard} setUserBoard={setUserBoard}/>
       </DndProvider>

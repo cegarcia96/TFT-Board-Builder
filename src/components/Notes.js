@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
-const Notes = ({ notesText, setNotesText, boardName, setBoardName, handleSubmit, loadBoard }) => {
+const Notes = ({ notesText, setNotesText, boardName, setBoardName, handleSubmit }) => {
 
   return (
-    <div className="text-container">
-      <button onClick={() => loadBoard()}>Load Board</button>
-      <form className="text-container">
-        <input type="text" placeholder="Board Name" value={boardName} onChange={(event) => setBoardName(event.target.value)}/>
-        <textarea
+    <div className="flex flex-col bg-slate-600 w-full">
+      <form className="flex flex-col">
+        <input className="bg-slate-600 border-b text-center w-3/4 self-center mt-2 mb-2 focus:outline-none" type="text" placeholder="Board Name" value={boardName} onChange={(event) => setBoardName(event.target.value)}/>
+        <textarea className="bg-slate-600 resize-none focus:outline-none px-2"
           cols="48"
           rows="12"
           id="body"
@@ -18,7 +17,7 @@ const Notes = ({ notesText, setNotesText, boardName, setBoardName, handleSubmit,
           value={notesText}
           onChange={(event) => setNotesText(event.target.value)}
         />
-        <input type="submit" value="Save Board" onClick={(event) => handleSubmit(event)}/>
+        <input className="bg-slate-600 mt-2 border-t hover:bg-slate-500 cursor-pointer" type="submit" value="Save Board" onClick={(event) => handleSubmit(event)}/>
       </form>
     </div>
   )

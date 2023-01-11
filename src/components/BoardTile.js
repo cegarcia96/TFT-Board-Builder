@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { useDrop } from 'react-dnd';
-import { useDrag } from 'react-dnd';
+import React, {useState, useEffect, useRef} from 'react';
+import { useDrop, useDrag, DragPreviewImage } from 'react-dnd';
 
 const BoardTile = ({ tile, userBoard, setUserBoard }) => {
 
@@ -35,14 +34,35 @@ const BoardTile = ({ tile, userBoard, setUserBoard }) => {
 
   if (!tile.champion) {
     return (
-      <div className="boardTile" ref={dropRef}>
-      {tile.position}
+      <div className="flex items-center justify-center w-28 h-28" >
+        <svg ref={dropRef} xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="100 47 55 170" width="100px" height="100px">
+          <clipPath id="overlay">
+          <polygon points="184 24 226 -3.16413562e-15 268 24 268 72 226 96 184 72" transform="translate(-184, 0)"></polygon>
+          </clipPath>
+          <path d="m197.928 172.13-70.102 40.474-70.102-40.473V91.184l70.102-40.474 70.102 40.474z"
+          fill="none"
+          stroke="#64748b"
+          strokeWidth="3"
+          strokeMiterlimit="4"
+          strokeDasharray="none"/>
+        </svg>
       </div>
     )
   }
   return (
-    <div className="boardTile" ref={dropRef} onClick={() => removeChampion(tile.position)}>
-      <img ref={dragRef} src={require(`../assets/champ-splashes/${tile.champion.name}.png`)} alt="champion"></img>
+    <div ref={dragRef} className="flex items-center justify-center w-28 h-28" >
+      <svg onClick={() => removeChampion(tile.position)}xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="100 47 55 170" width="100px" height="100px">
+        <clipPath id="overlay">
+        <polygon points="184 24 226 -3.16413562e-15 268 24 268 72 226 96 184 72" transform="translate(-184, 0)"></polygon>
+        </clipPath>
+        <path d="m197.928 172.13-70.102 40.474-70.102-40.473V91.184l70.102-40.474 70.102 40.474z"
+        fill="none"
+        stroke="#000"
+        strokeWidth="3"
+        strokeMiterlimit="4"
+        strokeDasharray="none"/>
+        <image xlinkHref={require(`../assets/champ-splashes/${tile.champion.name}.png`)} width="100" height="100" clipPath="url(#overlay)" x="-4" y="-2" transform="translate(57,49) scale(1.70)"/>
+      </svg>
     </div>
   );
 }

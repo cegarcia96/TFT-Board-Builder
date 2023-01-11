@@ -25,27 +25,17 @@ const Board = ( { userBoard, setUserBoard }) => {
   }
 
   return (
-    <div className="board">
-      <div className="row">
-        {generateRow(1).map((tile) => (
+    <div className="flex flex-col w-3/5 pl-20">
+      {[...Array(4)].map((e, index) => {
+        if ((index + 1) % 2 === 0) {
+          return <div key={index + 1} className="flex pl-12">{generateRow(index + 1).map((tile) => (
+            <BoardTile key={tile.position} tile={tile} userBoard={userBoard} setUserBoard={setUserBoard} />
+          ))}</div>
+        }
+        return <div key={index + 1} className="flex">{generateRow(index + 1).map((tile) => (
           <BoardTile key={tile.position} tile={tile} userBoard={userBoard} setUserBoard={setUserBoard} />
-        ))}
-      </div>
-      <div className="row">
-        {generateRow(2).map((tile) => (
-          <BoardTile key={tile.position} tile={tile} userBoard={userBoard} setUserBoard={setUserBoard} />
-        ))}
-      </div>
-      <div className="row">
-        {generateRow(3).map((tile) => (
-          <BoardTile key={tile.position} tile={tile} userBoard={userBoard} setUserBoard={setUserBoard} />
-        ))}
-      </div>
-      <div className="row">
-        {generateRow(4).map((tile) => (
-          <BoardTile key={tile.position} tile={tile} userBoard={userBoard} setUserBoard={setUserBoard} />
-        ))}
-      </div>
+        ))}</div>
+      })}
     </div>
   );
 }

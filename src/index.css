@@ -1,44 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   padding: 0;
+  background-color: #1e293b; /*slate-800*/
+  color: white;
 }
-.app {
-  width: 100%;
-}
+
 .teambuilder-container {
   display: flex;
+  width: 100%;
 }
-.board {
-  display: flex;
-  flex-direction: column;
+
+.championBank-container {
+  margin-top: 50px;
 }
-.row {
-  display: flex;
-}
-.boardTile {
-  border: solid 1px black;
-  width: 125px;
-  height: 125px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .championBank {
-  margin-top: 100px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  width: 75%;
-}
-
-img {
-  display: flex;
-  height: 100px;
-  width: 100px;
-}
-
-.trait-container {
-  display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .trait-icon {
@@ -48,9 +32,4 @@ img {
 }
 #clear {
   margin-bottom: 1rem;
-}
-
-.text-container {
-  display: flex;
-  flex-direction: column;
 }

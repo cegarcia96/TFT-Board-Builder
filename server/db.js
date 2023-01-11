@@ -29,8 +29,13 @@ const findBoard = (boardName) => {
   return Board.find({boardName: boardName})
 }
 
+const getBoards = () => {
+  return Board.find({})
+}
+
 module.exports = {
   getChampions: getChampions,
   saveBoard: saveBoard,
-  findBoard: findBoard
+  findBoard: findBoard,
+  getBoards: getBoards
 }

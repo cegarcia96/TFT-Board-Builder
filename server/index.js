@@ -21,6 +21,16 @@ app.post('/boards', (req, res) => {
     .catch((error) => res.status(500).send(error))
 })
 
+app.get('/boards', (req, res) => {
+  db.getBoards()
+    .then((boards) => {
+      res.status(200).send(boards.map((board) => {
+        return board.boardName
+      }))
+    })
+    .catch((error) => res.status(500).send(error))
+})
+
 app.get('/boards/:boardName', (req, res) => {
   db.findBoard(req.params.boardName)
     .then((response) => res.status(200).send(response))
