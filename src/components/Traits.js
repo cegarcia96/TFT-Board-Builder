@@ -67,25 +67,68 @@ const Traits = ({ userBoard }) => {
   }
   return (
     <div className="w-1/5 h-full overflow-auto">
-      {Object.keys(activeTraits).sort((a, b) => {
-        if (traitBreakpoints[a].includes(activeTraits[a]) && !traitBreakpoints[b].includes(activeTraits[b])) {
-          return -1;
-        }
-        if (traitBreakpoints[a].includes(activeTraits[a]) && traitBreakpoints[b].includes(activeTraits[b])) {
+      {Object.keys(activeTraits).sort(((a, b) => {
+        if (activeTraits[a] >= traitBreakpoints[a][0] && activeTraits[b] >= traitBreakpoints[b][0]) {
+          if (a === 'Corrupted' || a === 'Forecaster' || a === 'Arsenal') return -1;
+          if (b === 'Corrupted' || b === 'Forecaster' || b === 'Arsenal') return 1;
           if (activeTraits[a] > activeTraits[b]) {
             return -1;
           }
-        }
-        if (!traitBreakpoints[a].includes(activeTraits[a]) && !traitBreakpoints[b].includes(activeTraits[b])) {
-          if (a < b) {
-            return -1;
+          if (activeTraits[a] === activeTraits[b]) {
+            if (a < b) {
+              return -1;
+            }
           }
         }
-        return activeTraits[b] - activeTraits[a];
-      }).map((trait, index) => {
-        let highlight = false;
-        if (traitBreakpoints[trait].includes(activeTraits[trait]) || activeTraits[trait] > traitBreakpoints[trait][0]) {
-          highlight = true;
+        if (activeTraits[a] >= traitBreakpoints[a][0] && activeTraits[b] < traitBreakpoints[b][0]) {
+          return -1;
+        }
+        if (activeTraits[a] < traitBreakpoints[a][0] && activeTraits[b] < traitBreakpoints[b][0]) {
+          if (activeTraits[a] > activeTraits[b]) {
+            return -1;
+          }
+          if (activeTraits[a] === activeTraits[b]) {
+            if (a < b) {
+              return -1
+            }
+          }
+        }
+      })).map((trait, index) => {
+        let highlight = 'black';
+        if (traitBreakpoints[trait].length === 1) {
+          if (activeTraits[trait] >= traitBreakpoints[trait][0]) {
+            highlight = '#eab308';
+          }
+        }
+        if (traitBreakpoints[trait].length === 2) {
+          if (activeTraits[trait] >= traitBreakpoints[trait][0] && activeTraits[trait] < traitBreakpoints[trait][1]) {
+            highlight = '#CD7F32';
+          } else if (activeTraits[trait] >= traitBreakpoints[trait][1]) {
+            highlight = '#eab308';
+          }
+        }
+        if (traitBreakpoints[trait].length === 3) {
+          if (activeTraits[trait] >= traitBreakpoints[trait][0] && activeTraits[trait] < traitBreakpoints[trait][1]) {
+            highlight= '#CD7F32';
+          } else if (activeTraits[trait] >= traitBreakpoints[trait][1] && activeTraits[trait] < traitBreakpoints[trait][2]) {
+            highlight = '#C0C0C0';
+          } else if (activeTraits[trait] >= traitBreakpoints[trait][2]) {
+            highlight = '#eab308';
+          }
+        }
+        if (traitBreakpoints[trait].length === 4) {
+          if (activeTraits[trait] >= traitBreakpoints[trait][0] && activeTraits[trait] < traitBreakpoints[trait][1]) {
+            highlight= '#CD7F32';
+          } else if (activeTraits[trait] >= traitBreakpoints[trait][1] && activeTraits[trait] < traitBreakpoints[trait][2]) {
+            highlight= '#C0C0C0';
+          } else if (activeTraits[trait] >= traitBreakpoints[trait][2] && activeTraits[trait] < traitBreakpoints[trait][3]) {
+            highlight= '#eab308';
+          } else if (activeTraits[trait] >= traitBreakpoints[trait][3]) {
+            highlight = '#eab308';
+          }
+        }
+        if (trait === 'Threat') {
+          highlight = 'purple';
         }
         return (
           <div key={index} className="flex flex-col mb-2 border border-slate-700">
@@ -96,7 +139,7 @@ const Traits = ({ userBoard }) => {
                 <polygon points="184 24 226 -3.16413562e-15 268 24 268 72 226 96 184 72" transform="translate(-184, 0)"></polygon>
                 </clipPath>
                 <path d="m197.928 172.13-70.102 40.474-70.102-40.473V91.184l70.102-40.474 70.102 40.474z"
-                fill={highlight ? '#eab308' : 'black'}
+                fill={highlight}
                 stroke="#000"
                 strokeWidth="3"
                 strokeMiterlimit="4"
@@ -107,21 +150,24 @@ const Traits = ({ userBoard }) => {
               <div className="flex flex-col">
                   <span>{`${trait}`}</span>
                   <span>{traitBreakpoints[trait].map((breakpoint, index) => {
-                  if (index === traitBreakpoints[trait].length - 1) {
-                    if (activeTraits[trait] === breakpoint) {
+                    if (trait === 'Threat') {
                       return <span key={index} style={{fontWeight: 'bold'}}>{` ${breakpoint}`}</span>
                     }
-                    return <span key={index} className="opacity-50">{` ${breakpoint}`}</span>
-                  }
-                  if (activeTraits[trait] === breakpoint || (activeTraits[trait] > breakpoint && activeTraits[trait] < traitBreakpoints[trait][index + 1])) {
-                    return (
-                      <span key={index}>
-                        <span style={{fontWeight: 'bold'}}>{` ${breakpoint} ` }</span>
-                        <span className="opacity-50"> > </span>
-                      </span>
-                    )
-                  }
-                    return <span key={index} className="opacity-50">{` ${breakpoint} >`}</span>
+                    if (index === traitBreakpoints[trait].length - 1) {
+                      if (activeTraits[trait] === breakpoint) {
+                        return <span key={index} style={{fontWeight: 'bold'}}>{` ${breakpoint}`}</span>
+                      }
+                      return <span key={index} className="opacity-50">{` ${breakpoint}`}</span>
+                    }
+                    if (activeTraits[trait] === breakpoint || (activeTraits[trait] > breakpoint && activeTraits[trait] < traitBreakpoints[trait][index + 1])) {
+                      return (
+                        <span key={index}>
+                          <span style={{fontWeight: 'bold'}}>{` ${breakpoint} ` }</span>
+                          <span className="opacity-50"> > </span>
+                        </span>
+                      )
+                    }
+                      return <span key={index} className="opacity-50">{` ${breakpoint} >`}</span>
                 })}</span>
               </div>
             </div>

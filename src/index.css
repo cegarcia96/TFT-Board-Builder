@@ -13,23 +13,3 @@ body {
   display: flex;
   width: 100%;
 }
-
-.championBank-container {
-  margin-top: 50px;
-}
-
-.championBank {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.trait-icon {
-  background-color: black;
-  height: 30px;
-  width: 30px;
-}
-#clear {
-  margin-bottom: 1rem;
-}
