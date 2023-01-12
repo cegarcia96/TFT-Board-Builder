@@ -18,7 +18,7 @@ const Notes = ({ notesText, setNotesText, boardName, setBoardName, handleSubmit 
           value={notesText}
           onChange={(event) => setNotesText(event.target.value)}
         />
-        <input className="bg-slate-600 mt-2 border-t hover:bg-slate-500 cursor-pointer" type="submit" value="Save Board" onClick={(event) => handleSubmit(event)}/>
+        <input className="bg-slate-600 mt-2 border-t hover:bg-slate-500 cursor-pointer py-2" type="submit" value="Save Board" onClick={(event) => handleSubmit(event)}/>
       </form>
     </div>
   )
