@@ -21,8 +21,8 @@ app.post('/boards', (req, res) => {
     .catch((error) => res.status(500).send(error))
 })
 
-app.get('/boards', (req, res) => {
-  db.getBoards()
+app.get('/boards/user/:email', (req, res) => {
+  db.getBoards(req.params.email)
     .then((boards) => {
       res.status(200).send(boards.map((board) => {
         return board.boardName
@@ -32,8 +32,15 @@ app.get('/boards', (req, res) => {
 })
 
 app.get('/boards/:boardName', (req, res) => {
-  db.findBoard(req.params.boardName)
+  db.findBoard(req.params.boardName, req.query.email)
     .then((response) => res.status(200).send(response))
+    .catch((error) => res.status(500).send(error))
+})
+
+app.delete('/boards/:boardName', (req, res) => {
+  console.log(req.query)
+  db.deleteBoard(req.params.boardName, req.query.email)
+    .then((response) => res.status(201).send())
     .catch((error) => res.status(500).send(error))
 })
 

@@ -8,9 +8,10 @@ const championSchema = new mongoose.Schema({
 })
 
 const boardSchema = new mongoose.Schema({
-  boardName: {type: String, unique: true},
+  boardName: {type: String},
   board: {type: String},
-  notes: {type: String}
+  notes: {type: String},
+  email: {type: String}
 })
 
 const Champion = mongoose.model('Champion', championSchema);
@@ -22,20 +23,25 @@ const getChampions = () => {
 
 const saveBoard = (board) => {
   let options = { upsert: true, new: true, setDefaultsOnInsert: true }
-  return Board.findOneAndUpdate({boardName: board.boardName}, board, options)
+  return Board.findOneAndUpdate({boardName: board.boardName, email: board.email}, board, options)
 }
 
-const findBoard = (boardName) => {
-  return Board.find({boardName: boardName})
+const findBoard = (boardName, email) => {
+  return Board.find({boardName: boardName, email: email})
 }
 
-const getBoards = () => {
-  return Board.find({})
+const getBoards = (email) => {
+  return Board.find({email: email})
+}
+
+const deleteBoard = (boardName, email) => {
+  return Board.findOneAndDelete({boardName: boardName, email: email})
 }
 
 module.exports = {
   getChampions: getChampions,
   saveBoard: saveBoard,
   findBoard: findBoard,
-  getBoards: getBoards
+  getBoards: getBoards,
+  deleteBoard: deleteBoard
 }

@@ -50,7 +50,7 @@ const BoardTile = ({ tile, userBoard, setUserBoard }) => {
     )
   }
   return (
-    <div ref={dragRef} className="flex items-center justify-center w-28 h-28" >
+    <div ref={dragRef} className="flex items-center justify-center w-28 h-28 cursor-pointer" >
       <svg ref={dropRef} onClick={() => removeChampion(tile.position)}xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="100 47 55 170" width="100px" height="100px">
         <clipPath id="overlay">
         <polygon points="184 24 226 -3.16413562e-15 268 24 268 72 226 96 184 72" transform="translate(-184, 0)"></polygon>

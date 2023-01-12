@@ -94,7 +94,7 @@ const Traits = ({ userBoard }) => {
           }
         }
       })).map((trait, index) => {
-        let highlight = 'black';
+        let highlight = '#0f172a';
         if (traitBreakpoints[trait].length === 1) {
           if (activeTraits[trait] >= traitBreakpoints[trait][0]) {
             highlight = '#eab308';

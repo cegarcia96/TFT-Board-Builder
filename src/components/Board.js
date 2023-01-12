@@ -25,7 +25,7 @@ const Board = ( { userBoard, setUserBoard }) => {
   }
 
   return (
-    <div className="flex flex-col w-3/5 pl-20">
+    <div className="flex flex-col pl-8">
       {[...Array(4)].map((e, index) => {
         if ((index + 1) % 2 === 0) {
           return <div key={index + 1} className="flex pl-12">{generateRow(index + 1).map((tile) => (

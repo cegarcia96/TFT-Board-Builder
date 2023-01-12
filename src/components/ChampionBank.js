@@ -8,7 +8,7 @@ const ChampionBank = ({ champions, userBoard, setUserBoard }) => {
   const [searchText, setSearchText] = useState('');
 
   return (
-    <div className="mt-8 border border-red-500 w-full">
+    <div className="mt-8 w-full flex flex-col">
       <div className="w-1/6 bg-slate-600 flex justify-start items-center gap-2 mb-2 pl-2 h-8">
         <SearchIcon width="20px" height="20px"/>
         <input className="w-full bg-slate-600 self-center focus:outline-none" placeholder="Search by name or trait..." value={searchText} onChange={(event) => setSearchText(event.target.value)}/>

@@ -8,8 +8,3 @@ body {
   background-color: #1e293b; /*slate-800*/
   color: white;
 }
-
-.teambuilder-container {
-  display: flex;
-  width: 100%;
-}
