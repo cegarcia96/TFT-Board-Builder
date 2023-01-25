@@ -1,9 +1,11 @@
-const express = require ('express')
+const express = require ('express');
 const app = express();
+const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 const port = 3001;
 const db = require('./db.js');
+
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -38,9 +40,9 @@ app.get('/boards/:boardName', (req, res) => {
 })
 
 app.delete('/boards/:boardName', (req, res) => {
-  console.log(req.query)
+  console.log(req.params)
   db.deleteBoard(req.params.boardName, req.query.email)
-    .then((response) => res.status(201).send())
+    .then(() => res.status(201).send())
     .catch((error) => res.status(500).send(error))
 })
 

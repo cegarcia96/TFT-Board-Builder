@@ -82,7 +82,11 @@ const App = () => {
       .then(() => clearBoard())
       .catch((error) => console.log(error))
     } else {
-      axios.delete(`/boards/${board}`)
+      axios.delete(`/boards/${board}`, {
+        params: {
+          email: user.email
+        }
+      })
       .then(() => getBoards(user))
       .catch((error) => console.log(error))
     }

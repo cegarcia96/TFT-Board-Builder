@@ -1,5 +1,6 @@
 {
   "name": "rfp2210-mvp",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
