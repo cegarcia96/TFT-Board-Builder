@@ -31,7 +31,7 @@ Give a board a title and save. The positioning of the units will be saved along 
 
 ## Installation
 1. Fork and clone the repo
-2. Install MongoDB at https://www.mongodb.com/docs/manual/tutorial/getting-started/
+2. Install MongoDB by following the instructions at https://www.mongodb.com/docs/manual/tutorial/getting-started/
 3. Install dependencies with `npm install`
 4. Run the command `npm start`
 5. In a separate terminal run the command `npm run server-start`
